@@ -1,0 +1,30 @@
+# MATLAB / Simulink MCP 桥（桌面版）—— 以 bundle 层注册 mcp-matlab 行。
+#
+# ⚠️ 本文件里的 C:\Users\<用户名> 是占位符，安装前必须改成你自己的实际路径。
+#
+# 与 web 端的差异：这里是**原生 Windows 进程**，所以 command/cwd/args 全部用 Windows 路径，
+# 不再走 WSL interop。0.2.1 的 mcp-client 会把环境变量做一次清洗，而 MATLAB/Simulink
+# 需要 WINDIR、SystemRoot，因此显式补上。
+#   - 工具以 mcp__matlab__<name> 出现：5 个核心 MATLAB 工具 + --extension-file 提供的 model_* 工具
+#   - session-mode=auto：已有共享会话就挂上去，否则首次调用时拉起一个
+#   - toolCallTimeoutMs 抬到 15 分钟：仿真/代码生成/Simulink Test 常超过默认 60s
+- insert:
+    - id: mcp-matlab
+      name: '@deepseek-ai/dsh-mcp-client'
+      config:
+        serverName: matlab
+        transport: stdio
+        command: 'C:\Users\<用户名>\.matlab\agentic-toolkits\bin\matlab-mcp-server.exe'
+        cwd: 'C:\Users\<用户名>\.matlab\agentic-toolkits'
+        args:
+          - '--matlab-root=G:\Program Files\MATLAB\R2025b'
+          - '--matlab-session-mode=auto'
+          - '--extension-file=C:\Users\<用户名>\.matlab\agentic-toolkits\simulink\tools\tools.json'
+          - '--initial-working-folder=F:\MATLAB-Projects'
+          - '--log-folder=C:\Users\<用户名>\.matlab\agentic-toolkits\logs'
+          - '--log-level=info'
+          - '--disable-telemetry=true'
+        env:
+          SystemRoot: 'C:\WINDOWS'
+          WINDIR: 'C:\WINDOWS'
+        toolCallTimeoutMs: 900000

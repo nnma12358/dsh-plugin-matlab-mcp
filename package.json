@@ -1,0 +1,37 @@
+{
+  "name": "dsh-plugin-matlab-mcp",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "MATLAB / Simulink MCP 桥（桌面版）：以 bundle 层注册 @deepseek-ai/dsh-mcp-client，把 MATLAB R2025b 暴露成 mcp__matlab__* 工具。",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./package.json": "./package.json"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "files": [
+    "lib/index.js",
+    "cordis.patch.yml",
+    "README.md"
+  ],
+  "author": "nnma12358 (https://github.com/nnma12358)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nnma12358/dsh-plugin-matlab-mcp.git"
+  },
+  "homepage": "https://github.com/nnma12358/dsh-plugin-matlab-mcp#readme",
+  "bugs": {
+    "url": "https://github.com/nnma12358/dsh-plugin-matlab-mcp/issues"
+  },
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness"
+  ]
+}
